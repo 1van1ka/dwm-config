@@ -20,7 +20,6 @@
 
 For Arch/Arch-based systems:
 
-- dmenu
 - thunar
 - feh
 - alsa
@@ -40,7 +39,7 @@ For Arch/Arch-based systems:
 
 On Arch / Arch-based : 
 ```bash
-sudo pacman -Sy dmenu thunar feh pipewire pipewire-alsa pipewire-audio pipewire-pulse wireplumber acpi dunst brightnessctl fastfetch
+sudo pacman -Sy thunar feh pipewire pipewire-alsa pipewire-audio pipewire-pulse wireplumber acpi dunst brightnessctl fastfetch
 ```
 
 ### Repository cloning and compilation
@@ -49,14 +48,17 @@ git clone https://github.com/1van1ka/dwm-config.git ~/dwm-tmp
 cd ~/dwm-tmp
 rm README.md && rm -rf screenshots/
 
-sudo cp -RT . ~/.config/
+cp -RT . ~/.config/
 
 cd ~/.config/dwm/dwm
-sudo make clean install
+make && sudo make install
 sudo cp startdwm.sh /usr/local/bin/
 
 cd ../dwmblocks/
-sudo make clean install
+make && sudo make install
+
+cd ../dmenu/
+make && sudo make install
 
 rm -rf ~/dwm-tmp
 ```
