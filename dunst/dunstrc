@@ -1,0 +1,36 @@
+[global]
+font = "JetBrains Mono 14"
+timeout = 5
+width = 350
+height = (0,450)
+origin = top-right
+offset = (25,40)
+format = "<b>%a</b>\n<i>%s</i>\n %b \n"
+notification_limit = 4
+gap_size = 0
+
+mouse_left_click = close_current
+mouse_right_click = close_all
+
+
+[urgency_low]
+background = "#035f87"
+foreground = "#ffffff"
+fullscreen = delay
+
+[urgency_normal]
+background = "#2F3031"
+foreground = "#ffffff"
+fullscreen = show
+
+[urgency_critical]
+background = "#810101"
+foreground = "#ffffff"
+fullscreen = show
+
+[history_ignore]
+appname = volume
+appname = notifier
+appname = backlight
+history_ignore = yes
+

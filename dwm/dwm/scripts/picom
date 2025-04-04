@@ -1,0 +1,8 @@
+shadow = false;
+corner-radius = 0;
+blur-background = false;
+backend = "glx";
+vsync = true;
+use-damage = true;
+xrender-sync-fence = true;
+no-ewmh-fullscreen = true;

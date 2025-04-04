@@ -1,0 +1,32 @@
+#!/bin/sh
+
+case $2 in 
+    fine)
+        step="1"
+        ;;
+    *)
+        step="5"
+        ;;
+esac
+
+case $1 in
+	up)
+	    brightnessctl --class="backlight" s $step%+ > /dev/null
+		;;
+	down)
+	    brightnessctl --class="backlight" s $step%- > /dev/null
+		;;
+esac
+
+brightness=$(cat /sys/class/backlight/*/brightness)
+max_brightness=$(cat /sys/class/backlight/*/max_brightness)
+percent=$(( "$brightness * 100 / $max_brightness" ))
+
+
+send_notification() {
+    TEXT="currently speaker at ${percent}%";
+	notify-send -a "backlight" -r 9993 -h int:value:"$percent" "$TEXT" -t 1500
+}
+
+pkill -RTMIN+1 dwmblocks
+send_notification

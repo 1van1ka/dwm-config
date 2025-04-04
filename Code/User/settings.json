@@ -1,0 +1,59 @@
+{
+	"editor.minimap.enabled": false,
+	"editor.folding": false,
+	"editor.cursorStyle": "line-thin",
+	"editor.cursorBlinking": "solid",
+	"editor.stickyScroll.enabled": false,
+	"editor.lineHeight": 22,
+	"editor.fontFamily": "JetBrains Mono",
+	"editor.fontSize": 17,
+	"editor.fontWeight": "600",
+	"editor.scrollbar.horizontal": "hidden",
+	"editor.scrollbar.vertical": "hidden",
+	"editor.glyphMargin": true,
+	"editor.wordWrap": "on",
+	
+	"window.zoomLevel": 0,
+	"window.density.editorTabHeight": "compact",
+	"window.commandCenter": false,
+	"window.restoreFullscreen": true,
+	
+	"workbench.activityBar.location": "hidden",
+	"workbench.layoutControl.enabled": false,
+	"workbench.startupEditor": "none",
+	"terminal.integrated.fontSize": 17,
+	"terminal.integrated.lineHeight": 1.1,
+	"terminal.integrated.fontFamily": "JetBrains Mono",
+	"terminal.integrated.hideOnStartup": "always",
+
+	"breadcrumbs.enabled": false,
+	
+	"explorer.compactFolders": false,
+	"files.autoSave": "onFocusChange",
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"build": true
+		
+	},
+
+	"git.autoRepositoryDetection": false,
+	"telemetry.telemetryLevel": "crash",
+	"zenMode.hideActivityBar": false,
+	"security.workspace.trust.banner": "never",
+	"extensions.ignoreRecommendations": true,
+	"explorer.confirmDelete": false,
+	"window.menuBarVisibility": "toggle",
+	"security.workspace.trust.untrustedFiles": "open",
+	"workbench.colorTheme": "One Dark Pro",
+	"chat.commandCenter.enabled": false,
+	"window.titleBarStyle": "native",
+	"C_Cpp.intelliSenseEngine": "disabled",
+	"terminal.integrated.tabs.enabled": false,
+	"explorer.confirmDragAndDrop": false,
+	"editor.renderControlCharacters": false
+}
