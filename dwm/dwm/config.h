@@ -9,7 +9,7 @@ static const int smartgaps_fact          = 0;   /* gap factor when there is only
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
-static const int statusmon               = 'A';
+static const int statusmon               = -1;
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int showsystray             = 1;   /* 0 means no systray */
 
@@ -20,7 +20,6 @@ static const char *fonts[]               = {
   "JetBrains Mono:size=11:style=Bold", 
   "HackNerdFont:size=12"
 };
-static const char dmenufont[]            = "JetBrains Mono:size=14:style=Bold";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
@@ -129,18 +128,12 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {
 	"dmenu_run",
-	"-m", dmenumon,
-	"-fn", dmenufont,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
 	NULL
 };
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
-	{ Mod1Mask,                     XK_F3,         spawn,                  {.v = dmenucmd } },
+	{ Mod1Mask,                     XK_space,      spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = (const char*[]){ "kitty", NULL } } },
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = +1 } },

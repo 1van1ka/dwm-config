@@ -19,5 +19,5 @@ static const Block blocks[] = {
 };
 
 // Разделитель
-static char delim[] = "";
+static char delim[] = " ";
 static unsigned int delimLen = 7;
