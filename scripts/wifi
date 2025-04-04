@@ -1,0 +1,55 @@
+#!/bin/sh
+
+status=$(nmcli -fields WIFI g | awk 'NR==2 {print $1}')
+
+if [ "$status" = "enabled" ]; then
+    active_info=$(nmcli -t -f active,ssid,device dev wifi | grep '^yes')
+    active_ssid=$(echo "$active_info" | cut -d':' -f2)
+    active_device=$(echo "$active_info" | cut -d':' -f3)
+fi
+
+choice=$(
+    {
+        if [ "$status" = "enabled" ]; then
+            nmcli dev wifi rescan
+            echo "Disable WiFi"
+            [ -n "$active_ssid" ] && echo "Disconnect $active_ssid"
+            nmcli -f BSSID,SSID,SIGNAL,RATE,SECURITY dev wifi list | sed -n '1!p'
+        else
+            echo "Enable WiFi"
+        fi
+    } | dmenu -p "Network: " -l 20
+)
+
+case "$choice" in
+    "Enable WiFi")
+        nmcli radio wifi on
+        exit 0
+        ;;
+    "Disable WiFi")
+        nmcli radio wifi off
+        exit 0
+        ;;
+    Disconnect*)
+        [ -n "$active_device" ] && nmcli dev disconnect "$active_device"
+        exit 0
+        ;;
+    "")
+        exit 0
+        ;;
+    *)
+        
+        bssid=$(echo "$choice" | awk '{print $1}')
+        security=$(echo "$choice" | awk '{print $6}')
+    
+        case "$security" in 
+            "--")
+                nmcli dev wifi connect "$bssid"
+                ;;
+            *)
+                pass=$(echo "" | dmenu -p "Password for $(echo "$choice" | awk '{print $2}'):" -P)
+                echo "$pass" | nmcli --ask dev wifi connect "$bssid"
+                ;;
+        esac
+        ;;
+esac

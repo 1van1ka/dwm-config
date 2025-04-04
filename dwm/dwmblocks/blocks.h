@@ -7,7 +7,7 @@ static const Block blocks[] = {
 
     {"",  "$HOME/.config/dwm/dwmblocks/scripts/brightness",  0,                  1},
 
-    {"",  "$HOME/.config/dwm/dwmblocks/scripts/memory",         1,                  0},
+    {"",  "$HOME/.config/dwm/dwmblocks/scripts/memory",      1,                  0},
     
     {"",  "$HOME/.config/dwm/dwmblocks/scripts/cpu",         1,                  0},
     
@@ -16,6 +16,8 @@ static const Block blocks[] = {
     {"",  "$HOME/.config/dwm/dwmblocks/scripts/notify",      3,                  1},
     
     {"",  "$HOME/.config/dwm/dwmblocks/scripts/datetime",    10,                 0},
+    
+    {"",  "$HOME/.config/dwm/dwmblocks/scripts/network",     10,                 0},
 };
 
 // Разделитель

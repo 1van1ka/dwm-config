@@ -47,6 +47,7 @@ sudo pacman -Sy thunar feh pipewire pipewire-alsa pipewire-audio pipewire-pulse 
 git clone https://github.com/1van1ka/dwm-config.git ~/dwm-tmp
 cd ~/dwm-tmp
 rm README.md && rm -rf screenshots/
+sudo cp scripts/* /usr/bin/
 
 cp -RT . ~/.config/
 
