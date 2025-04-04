@@ -163,6 +163,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_v,          togglefloating,         {0} },
 	{ MODKEY,             			XK_e,          spawn,         		   {.v = (const char *[]){ "thunar", NULL } } },
 	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+1 dwmblocks") },
+	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/weather") },
+	{ MODKEY,             			XK_c,          spawn,         		   {.v = (const char *[]){ "clipmenu", NULL } } },
 	
   /* custom  */
 	{ 0,                            XF86XK_AudioMute,           spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio mute") },
