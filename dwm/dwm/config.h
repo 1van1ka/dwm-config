@@ -1,6 +1,6 @@
 
 static const unsigned int borderpx       = 3;   /* border pixel of windows */
-static const unsigned int snap           = 32;  /* snap pixel */
+static const unsigned int snap           = 40;  /* snap pixel */
 static const unsigned int gappih         = 10;  /* horiz inner gap between windows */
 static const unsigned int gappiv         = 10;  /* vert inner gap between windows */
 static const unsigned int gappoh         = 5;  /* horiz outer gap between windows and screen edge */
@@ -17,8 +17,8 @@ static int tagindicatortype              = INDICATOR_TOP_LEFT_SQUARE;
 static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_TOP_LEFT_SQUARE;
 static const char *fonts[]               = { 
-  "JetBrains Mono:size=11:style=Bold", 
-  "HackNerdFont:size=12"
+  "JetBrains Mono:size=10:style=Bold", 
+  "HackNerdFont:size=11"
 };
 
 static char c000000[]                    = "#000000"; // placeholder value
@@ -89,7 +89,14 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "feh", .isfloating = 1)
-	RULE(.class = "mpv", .isfloating = 1)
+	RULE(.class = "Viewnior", .isfloating = 1)
+	RULE(.class = "Nemo", .isfloating = 1)
+	RULE(.class = "mpv", .isfloating = 1, .tags = 1 << 4)
+	RULE(.class = "firefox", .tags = 1 << 0)
+	RULE(.class = "Code", .tags = 1 << 6)
+	RULE(.class = "Evince", .tags = 1 << 5)
+    RULE(.class = "TelegramDesktop", .tags = 1 << 3)
+    RULE(.class = "discord", .tags = 1 << 3)
 };
 
 static const BarRule barrules[] = {
@@ -104,7 +111,7 @@ static const BarRule barrules[] = {
 /* layout(s) */
 static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -120,7 +127,7 @@ static const Layout layouts[] = {
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY|Mod1Mask,              KEY,      toggletag,      {.ui = 1 << TAG} },
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
@@ -154,7 +161,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
 	{ MODKEY,                       XK_Return,     zoom,                   {0} },
 	{ MODKEY|ShiftMask,             XK_v,          togglefloating,         {0} },
-	{ MODKEY,             			XK_e,          spawn,         		   {.v = (const char *[]){ "thunar", NULL } } },
+	{ MODKEY,             			XK_e,          spawn,         		   {.v = (const char *[]){ "nemo", NULL } } },
 	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+1 dwmblocks") },
 	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/weather") },
 	{ MODKEY,             			XK_c,          spawn,         		   {.v = (const char *[]){ "clipmenu", NULL } } },
