@@ -21,7 +21,7 @@ static const char *fonts[]               = {
   "HackNerdFont:size=11"
 };
 
-static char c000000[]                    = "#000000"; // placeholder value
+static char c000000[]                    = "#000000";
 
 static char normfgcolor[]                = "#fff8e6";
 static char normbgcolor[]                = "#282828";
@@ -58,8 +58,8 @@ static char hidselfgcolor[]              = "#227799";
 static char hidnormbgcolor[]             = "#222222";
 static char hidselbgcolor[]              = "#222222";
 
-static char urgfgcolor[]                 = "#bbbbbb";
-static char urgbgcolor[]                 = "#222222";
+static char urgfgcolor[]                 = "#aa0000";
+static char urgbgcolor[]                 = "#747474";
 static char urgbordercolor[]             = "#ff0000";
 static char urgfloatcolor[]              = "#a73b3b";
 
