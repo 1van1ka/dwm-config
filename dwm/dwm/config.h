@@ -91,6 +91,7 @@ static const Rule rules[] = {
 	RULE(.class = "feh", .isfloating = 1)
 	RULE(.class = "Viewnior", .isfloating = 1)
 	RULE(.class = "Nemo", .isfloating = 1)
+	RULE(.class = "pavucontrol", .isfloating = 1)
 	RULE(.class = "mpv", .isfloating = 1, .tags = 1 << 4)
 	RULE(.class = "firefox", .tags = 1 << 0)
 	RULE(.class = "Code", .tags = 1 << 6)
@@ -140,7 +141,8 @@ static const char *dmenucmd[] = {
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
-	{ Mod1Mask,                     XK_space,      spawn,                  {.v = dmenucmd } },
+	{ Mod1Mask|ShiftMask,           XK_space,      spawn,                  {.v = dmenucmd } },
+	{ Mod1Mask,                     XK_space,      spawn,                  {.v = (const char*[]){ "dmenu_drun", NULL } } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = (const char*[]){ "kitty", NULL } } },
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = +1 } },
@@ -162,6 +164,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return,     zoom,                   {0} },
 	{ MODKEY|ShiftMask,             XK_v,          togglefloating,         {0} },
 	{ MODKEY,             			XK_e,          spawn,         		   {.v = (const char *[]){ "nemo", NULL } } },
+	{ MODKEY,             			XK_p,          spawn,         		   {.v = (const char *[]){ "pavucontrol", NULL } } },
 	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+1 dwmblocks") },
 	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/weather") },
 	{ MODKEY,             			XK_c,          spawn,         		   {.v = (const char *[]){ "clipmenu", NULL } } },
