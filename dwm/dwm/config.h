@@ -1,4 +1,5 @@
 
+#define STATUSBAR "dwmblocks"
 static const unsigned int borderpx       = 3;   /* border pixel of windows */
 static const unsigned int snap           = 40;  /* snap pixel */
 static const unsigned int gappih         = 10;  /* horiz inner gap between windows */
@@ -211,4 +212,7 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,                   Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,              Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
+	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
 };
