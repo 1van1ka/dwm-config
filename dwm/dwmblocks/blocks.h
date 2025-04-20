@@ -17,9 +17,9 @@ static const Block blocks[] = {
     
     {"",  "$HOME/.config/dwm/dwmblocks/scripts/datetime",    10,                 0},
     
-    {"",  "$HOME/.config/dwm/dwmblocks/scripts/network",     10,                 0},
+    {"",  "$HOME/.config/dwm/dwmblocks/scripts/network",     1,                  0},
 };
 
 // Разделитель
-static char delim[] = " ";
+static char delim[] = "";
 static unsigned int delimLen = 7;
