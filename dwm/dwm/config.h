@@ -1,5 +1,4 @@
 
-#define STATUSBAR "dwmblocks"
 static const unsigned int borderpx       = 3;   /* border pixel of windows */
 static const unsigned int snap           = 40;  /* snap pixel */
 static const unsigned int gappih         = 10;  /* horiz inner gap between windows */
@@ -168,6 +167,7 @@ static const Key keys[] = {
 	{ MODKEY,             			XK_p,          spawn,         		   {.v = (const char *[]){ "pavucontrol", NULL } } },
 	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+1 dwmblocks") },
 	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/weather") },
+	{ MODKEY,             			XK_q,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/powerswitcher") },
 	{ MODKEY,             			XK_c,          spawn,         		   {.v = (const char *[]){ "clipmenu", NULL } } },
 	{ MODKEY,                       XK_comma,      focusmon,               {.i = -1 } },
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
@@ -212,7 +212,4 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,                   Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,              Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
-	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
-	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
-	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
 };

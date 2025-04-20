@@ -67,11 +67,6 @@ rm -rf ~/dwm-tmp
 
 ### Boot configuration
 
-If using a display manager
-
-```bash
-sudo cp ~/.config/dwm/dwm/dwm.desktop /usr/local/share/xsessions/
-```
 If not using a display manager
 ```bash
 echo "exec /usr/local/bin/startdwm.sh" >> ~/.xinitrc

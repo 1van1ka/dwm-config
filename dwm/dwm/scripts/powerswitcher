@@ -1,0 +1,10 @@
+#/bin/sh 
+
+MODES=(
+    "power-saver"
+    "balanced"
+    "performance"
+)
+
+mode=$(printf "%s\n" "${MODES[@]}" | dmenu "$@" )
+powerprofilesctl set $mode
