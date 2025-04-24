@@ -18,4 +18,5 @@ static const int textsize = 70;
 
 
 /* Background image path, should be available to the user above */
+#define IMAGE_PATH 1
 static const char* background_image = "/home/ivanika/Pictures/wallpapers/10.jpg";

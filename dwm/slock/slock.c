@@ -164,8 +164,8 @@ refresh(Display *dpy, Window win, int screen, struct tm time, cairo_t *cr, cairo
 	int xpos, ypos;
 	const char* layout = get_current_layout(dpy);
 
-	xpos = DisplayWidth(dpy, screen)/5;
-	ypos = DisplayHeight(dpy, screen)/2.5;
+	xpos = DisplayWidth(dpy, screen)/6;
+	ypos = DisplayHeight(dpy, screen)/4;
 
 	sprintf(tm,"%02d/%02d/%02d %02d:%02d",time.tm_mday,time.tm_mon + 1,time.tm_year+1900,time.tm_hour,time.tm_min);
 	XClearWindow(dpy, win);
@@ -212,7 +212,50 @@ displayTime(void* input)
 	return NULL;
 }
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#define MAX_LINE 1024
+#define MAX_PATH 4096
+
+#if IMAGE_PATH 
+char *
+image_parse() {
+	const char *home = getenv("HOME");
+	if (!home) return NULL;
+
+	char fehbg_path[MAX_PATH];
+	snprintf(fehbg_path, sizeof(fehbg_path), "%s/.fehbg", home);
+
+	FILE *fp = fopen(fehbg_path, "r");
+	if (!fp) {
+		fprintf(stderr, "Не удалось открыть %s\n", fehbg_path);
+		return NULL;
+	}
+
+	char line[MAX_LINE];
+	char *start, *end;
+
+	while (fgets(line, sizeof(line), fp)) {
+		if (strstr(line, "feh")) {
+			start = strchr(line, '\'');
+			if (start) {
+				start++;
+				end = strchr(start, '\'');
+				if (end) {
+					*end = '\0';
+					fclose(fp);
+					return strdup(start);
+				}
+			}
+		}
+	}
+
+	fclose(fp);
+	return NULL;
+}
+#endif
 
 static void
 readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
@@ -431,11 +474,23 @@ main(int argc, char **argv) {
 	const char *hash;
 	Display *dpy;
 	int s, nlocks, nscreens;
+	#if IMAGE_PATH
+	char *background_image = image_parse();
+	#endif 
 
 	ARGBEGIN {
 	case 'v':
 		puts("slock-"VERSION);
 		return 0;
+		case 'i':
+		if (argc > 1) {
+			background_image = *(++argv); // перейти к следующему аргументу
+			argc--;
+			break;
+		} else {
+			fprintf(stderr, "Option -i requires an argument\n");
+			exit(1);
+		}
 	default:
 		usage();
 	} ARGEND
