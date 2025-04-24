@@ -244,19 +244,19 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 
 			switch (ksym) {
 			case XF86XK_AudioRaiseVolume:
-				system("~/.config/dwm/dwm/scripts/audio up");
+				system("audio up");
 				break;
 			case XF86XK_AudioLowerVolume:
-				system("~/.config/dwm/dwm/scripts/audio down");
+				system("audio down");
 				break;
 			case XF86XK_AudioMute:
-				system("~/.config/dwm/dwm/scripts/audio mute");
+				system("audio mute");
 				break;
 			case XF86XK_MonBrightnessDown:
-				system("~/.config/dwm/dwm/scripts/brightness down");
+				system("brightness down");
 				break;
 			case XF86XK_MonBrightnessUp:
-				system("~/.config/dwm/dwm/scripts/brightness up");
+				system("brightness up");
 				break;
 			case XK_Return:
 				passwd[len] = '\0';
