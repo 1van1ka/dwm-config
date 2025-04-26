@@ -1,4 +1,5 @@
 
+#include <X11/X.h>
 static const unsigned int borderpx       = 3;   /* border pixel of windows */
 static const unsigned int snap           = 40;  /* snap pixel */
 static const unsigned int gappih         = 10;  /* horiz inner gap between windows */
@@ -98,6 +99,7 @@ static const Rule rules[] = {
 	RULE(.class = "Evince", .tags = 1 << 5)
     RULE(.class = "TelegramDesktop", .tags = 1 << 3)
     RULE(.class = "discord", .tags = 1 << 3)
+    RULE(.class = "com.github.th_ch.youtube_music", .tags = 1 << 8)
 };
 
 static const BarRule barrules[] = {
@@ -118,7 +120,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "|M|",      monocle },
+	{ "[M]",      centeredmaster },
+	
 };
 
 /* key definitions */
@@ -144,6 +148,7 @@ static const Key keys[] = {
 	{ Mod1Mask|ShiftMask,           XK_space,      spawn,                  {.v = dmenucmd } },
 	{ Mod1Mask,                     XK_space,      spawn,                  {.v = (const char*[]){ "dmenu_drun", NULL } } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = (const char*[]){ "kitty", NULL } } },
+	{ MODKEY,                       XK_Escape,     spawn,                  {.v = (const char*[]){ "slock", NULL } } },
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	{ MODKEY,                       XK_j,          focusstack,             {.i = +1 } },
 	{ MODKEY,                       XK_k,          focusstack,             {.i = -1 } },
@@ -161,13 +166,15 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_t,          setlayout,              {.v = &layouts[3]} },
 	{ MODKEY,                       XK_Return,     zoom,                   {0} },
 	{ MODKEY|ShiftMask,             XK_v,          togglefloating,         {0} },
 	{ MODKEY,             			XK_e,          spawn,         		   {.v = (const char *[]){ "nemo", NULL } } },
 	{ MODKEY,             			XK_p,          spawn,         		   {.v = (const char *[]){ "pavucontrol", NULL } } },
-	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+1 dwmblocks") },
-	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/weather") },
-	{ MODKEY,             			XK_q,          spawn,         		   SHCMD("~/.config/dwm/dwm/scripts/powerswitcher") },
+	{ MODKEY,             			XK_n,          spawn,         		   SHCMD("if [[ $(dunstctl get-pause-level) -eq 0 ]]; then notify-send -a notifier 'notifications will be disabled' -t 1000; sleep 1s; dunstctl set-paused toggle; else dunstctl set-paused toggle; notify-send -a notifier 'notifications enabled' -t 1000; fi; pkill -RTMIN+3 dwmblocks") },
+	{ MODKEY,             			XK_w,          spawn,         		   SHCMD("weather") },
+	{ MODKEY,             			XK_q,          spawn,         		   SHCMD("powerswitcher; pkill -RTMIN+4 dwmblocks") },
+	{ Mod1Mask|ControlMask,         XK_Delete,     spawn,         		   SHCMD("powermenu") },
 	{ MODKEY,             			XK_c,          spawn,         		   {.v = (const char *[]){ "clipmenu", NULL } } },
 	{ MODKEY,                       XK_comma,      focusmon,               {.i = -1 } },
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
@@ -175,15 +182,15 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
 	
   /* custom  */
-	{ 0,                            XF86XK_AudioMute,           spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio mute") },
-	{ 0,                            XF86XK_AudioLowerVolume,    spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio down") },
-    { 0,                            XF86XK_AudioRaiseVolume,    spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio up") },
-    { 0,                            XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/.config/dwm/dwm/scripts/brightness up") },
-    { 0,                            XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/.config/dwm/dwm/scripts/brightness down") },
-	{ ShiftMask,                    XF86XK_AudioLowerVolume,    spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio down fine") },
-    { ShiftMask,                    XF86XK_AudioRaiseVolume,    spawn,          SHCMD("~/.config/dwm/dwm/scripts/audio up fine") },
-    { ShiftMask,                    XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/.config/dwm/dwm/scripts/brightness up fine") },
-    { ShiftMask,                    XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/.config/dwm/dwm/scripts/brightness down fine") },
+	{ 0,                            XF86XK_AudioMute,           spawn,          SHCMD("audio mute") },
+	{ 0,                            XF86XK_AudioLowerVolume,    spawn,          SHCMD("audio down") },
+    { 0,                            XF86XK_AudioRaiseVolume,    spawn,          SHCMD("audio up") },
+    { 0,                            XF86XK_MonBrightnessUp,     spawn,          SHCMD("brightness up") },
+    { 0,                            XF86XK_MonBrightnessDown,   spawn,          SHCMD("brightness down") },
+	{ ShiftMask,                    XF86XK_AudioLowerVolume,    spawn,          SHCMD("audio down fine") },
+    { ShiftMask,                    XF86XK_AudioRaiseVolume,    spawn,          SHCMD("audio up fine") },
+    { ShiftMask,                    XF86XK_MonBrightnessUp,     spawn,          SHCMD("brightness up fine") },
+    { ShiftMask,                    XF86XK_MonBrightnessDown,   spawn,          SHCMD("brightness down fine") },
     { 0,                            XK_Print,                   spawn,          {.v = (const char *[]){ "flameshot", "gui", NULL } } },
     { 0,                            XK_ISO_Next_Group,          spawn,          SHCMD("pkill -RTMIN+10 dwmblocks") },
 

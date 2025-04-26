@@ -1,6 +1,3 @@
-/* Settings */
-static int enablegaps = 1;
-
 static void
 setgaps(int oh, int ov, int ih, int iv)
 {

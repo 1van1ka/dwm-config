@@ -17,6 +17,7 @@
 #include "restartsig.h"
 #include "seamless_restart.h"
 #include "vanitygaps.h"
+
 /* Layouts */
 #include "layout_monocle.h"
 #include "layout_tile.h"

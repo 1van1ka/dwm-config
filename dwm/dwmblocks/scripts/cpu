@@ -33,13 +33,7 @@ if [[ "${PREV_TOTAL}" != "" ]] && [[ "${PREV_IDLE}" != "" ]]; then
     fi
 fi
 
-case $(powerprofilesctl get) in 
-    power-saver) prefix="S" ;;
-    balanced) prefix="B" ;;
-    performance) prefix="P" ;;
-esac
-
-echo "$prefix ${DIFF_USAGE}%"
+echo "󰻠 ${DIFF_USAGE}%"
 
 echo "${TOTAL}" > "${cpuFile}"
 echo "${IDLE}" >> "${cpuFile}"

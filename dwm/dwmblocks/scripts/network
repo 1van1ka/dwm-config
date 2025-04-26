@@ -1,24 +1,14 @@
 #!/bin/sh
+data=$(nmcli -t -f TYPE,DEVICE connection show --active)
 
+case "$data" in
+    "802-3-ethernet"*) eth="󰈀 " ;;
+    "802-11-wireless"*) eth="󱚽 " ;;
+    *) eth="󰅛 " ;;
+esac    
 
-get_connection_icon() {
-    nmcli -t -f TYPE,DEVICE connection show --active | while read -r line; do
-        case "$line" in
-            "802-3-ethernet"*)
-                echo " "
-                return
-                ;;
-            "802-11-wireless"*)
-                echo "󱚽 "
-                return
-                ;;
-            *)
-                echo "󰅛 "
-                return
-                ;;
-        esac
-    done
-    
-}
+if echo "$data" | grep -q "wireguard"; then
+    virt="!"
+fi
 
-get_connection_icon
+echo "$virt$eth"
