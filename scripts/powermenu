@@ -1,0 +1,25 @@
+#!/bin/sh
+
+function powermenu {
+    while true; do
+        uptime_seconds=$(awk '{print int($1)}' /proc/uptime)
+        uptime_formatted=$(printf "%02d.%02d.%02d" \
+                          $((uptime_seconds/86400)) \
+                          $(( (uptime_seconds%86400)/3600 )) \
+                          $(( (uptime_seconds%3600)/60 )))
+
+        selected=$(echo -e "lock\nsuspend\nshutdown\nreboot\nhibernate" | \
+                  dmenu -p "Uptime: $uptime_formatted" -l 7 -c -r -w 800)
+
+        case "$selected" in
+            "lock") slock; break ;;
+            "shutdown") poweroff; break ;;
+            "reboot") reboot; break ;;
+            "suspend") systemctl suspend; sleep 2; slock; break ;;
+            "hibernate") systemctl hibernate; break ;;
+            "") exit 0 ;;
+        esac
+    done
+}
+
+powermenu

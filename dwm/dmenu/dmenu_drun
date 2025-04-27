@@ -19,18 +19,18 @@ CATEGORIES=(
 
 
 while true; do
-  category=$(printf "%s\n" "${CATEGORIES[@]}" | dmenu "$@" -i -l 12)
+  category=$(printf "%s\n" "${CATEGORIES[@]}" | dmenu "$@" -c -i -l 10)
   [ "$category" == "" ] && exit 1
 
     while true; do
     if [ "$category" == "All" ]; then
         name=$(grep -H -R '^Name=' $DESKTOP_DIRS 2>/dev/null | \
         cut -d ':' -f1 | xargs -I {} grep -m 1 '^Name=' {} | cut -d '=' -f2 | \
-        sort | uniq | grep -v '^$' | dmenu "$@" -i -l 10)
+        sort | uniq | grep -v '^$' | dmenu "$@" -c -i -l 10)
     else
         name=$(grep -H -R "^Categories=.*$category" $DESKTOP_DIRS 2>/dev/null | \
         cut -d ':' -f1 | xargs -I {} grep -m 1 '^Name=' {} | cut -d '=' -f2 | \
-        sort | uniq | grep -v '^$' | dmenu "$@" -i -l 10)
+        sort | uniq | grep -v '^$' | dmenu "$@" -c -i -l 10)
     fi
 
     [ "$name" == "" ] && break
